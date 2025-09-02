@@ -1,0 +1,11 @@
+.tab {
+  display: flex;
+  flex-direction: column;
+
+  .cards {
+    display: flex;
+    gap: 24px;
+    flex-wrap: wrap;
+    max-height: 660px;
+  }
+}
