@@ -32,7 +32,7 @@ const BurgerConstructor: React.FC<Props> = ({ data }) => {
             <ConstructorElement
               type="top"
               isLocked
-              text={buns.name}
+              text={`${buns.name} \n (верх)`}
               price={buns.price}
               thumbnail={buns.image}
             />
@@ -41,7 +41,7 @@ const BurgerConstructor: React.FC<Props> = ({ data }) => {
           <div className={styles.ingredients}>
             {ingedients.map((item) => {
               return (
-                <div className={styles.ingredient}>
+                <div className={styles.ingredient} key={item._id}>
                   <span className={`${styles.draggable} mr-2`}>
                     <DragIcon type="primary" />
                   </span>
@@ -59,7 +59,7 @@ const BurgerConstructor: React.FC<Props> = ({ data }) => {
             <ConstructorElement
               type="bottom"
               isLocked
-              text={buns.name}
+              text={`${buns.name} \n (низ)`}
               price={buns.price}
               thumbnail={buns.image}
             />

@@ -9,7 +9,7 @@ function App() {
   return (
     <div className="App">
       <AppHeader />
-      <main style={{ display: "flex", gap: "40px", alignItems: "flex-start" }}>
+      <main>
         <BurgerIngredients data={data} />
         <BurgerConstructor data={data} />
       </main>
