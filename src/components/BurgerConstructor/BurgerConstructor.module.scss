@@ -1,0 +1,30 @@
+.section {
+  flex: 0 0 620px;
+
+  .ingredients {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    overflow-y: auto !important;
+    max-height: 464px !important;
+
+    scrollbar-width: thin !important;
+    scrollbar-color: #8585ad #2f2f37 !important;
+
+    .ingredient {
+      display: flex;
+      align-items: center;
+    }
+
+    .draggable {
+      cursor: grab;
+    }
+  }
+
+  .priceContainer {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-end;
+  }
+}

@@ -1,0 +1,10 @@
+.link {
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  border-radius: var(--common-border-radius);
+
+  &:hover {
+    background: var(--background-element);
+  }
+}

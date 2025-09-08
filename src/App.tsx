@@ -1,24 +1,18 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import "./App.scss";
+import AppHeader from "./components/AppHeader/AppHeader";
+import BurgerConstructor from "./components/BurgerConstructor/BurgerConstructor";
+import BurgerIngredients from "./components/BurgerIngredients/BurgerIngredients";
+import { mockData } from "./utils/data";
 
 function App() {
+  const data = mockData.data;
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <AppHeader />
+      <main>
+        <BurgerIngredients data={data} />
+        <BurgerConstructor data={data} />
+      </main>
     </div>
   );
 }

@@ -1,0 +1,15 @@
+section {
+  flex: 0 0 620px;
+
+  .tabs {
+    display: flex;
+  }
+
+  .ingredientsWrapper {
+    overflow-y: auto !important;
+    max-height: 660px !important;
+
+    scrollbar-width: thin !important;
+    scrollbar-color: #8585ad #2f2f37 !important;
+  }
+}
