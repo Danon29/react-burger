@@ -3,6 +3,7 @@ import styles from "./BurgerIngredients.module.scss";
 import { Tab } from "@ya.praktikum/react-developer-burger-ui-components";
 import { IngreditentsData } from "../../types";
 import BurgerIngredientsTab from "../BurgerIngredientsTab/BurgerIngredientsTab";
+import IngredientDetails from "../IngredientDetails/IngredientDetails";
 
 const IngredientsTabsEnum = {
   BUN: { value: "BUN", label: "Булки" },
@@ -16,6 +17,10 @@ type TabValue =
 const BurgerIngredients: React.FC<Props> = ({ data }) => {
   const [currentTab, setCurrentTab] = useState<TabValue>(
     IngredientsTabsEnum.BUN.value
+  );
+
+  const [detailedItem, setDetailedItem] = useState<IngreditentsData | null>(
+    null
   );
 
   const refs = useRef<Record<TabValue, HTMLElement | null>>({
@@ -68,10 +73,18 @@ const BurgerIngredients: React.FC<Props> = ({ data }) => {
                   .label
               }
               data={value}
+              onItemClick={setDetailedItem}
             />
           </div>
         ))}
       </div>
+
+      {detailedItem && (
+        <IngredientDetails
+          item={detailedItem}
+          onClose={() => setDetailedItem(null)}
+        />
+      )}
     </section>
   );
 };

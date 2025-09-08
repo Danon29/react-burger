@@ -1,0 +1,45 @@
+.container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: fixed;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  right: 0;
+
+  .dialog {
+    background-color: var(--background);
+    border-radius: var(--common-border-radius-s);
+    z-index: 1000;
+
+    .content {
+      flex: 1 1 200px;
+      align-items: center;
+      display: flex;
+      justify-content: center;
+    }
+  }
+
+  .header {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-end;
+
+    .title {
+      flex: 1 0 100px;
+      min-width: 600px;
+    }
+
+    .close-button {
+      cursor: pointer;
+      flex: 0 0 auto;
+      align-self: center;
+
+      &:hover {
+        opacity: 0.7;
+      }
+    }
+  }
+}

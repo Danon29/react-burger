@@ -6,9 +6,12 @@ import {
   CurrencyIcon,
   DragIcon,
 } from "@ya.praktikum/react-developer-burger-ui-components";
-import { useMemo } from "react";
+import { useMemo, useState } from "react";
+import OrderDetails from "../OrderDetails/OrderDetails";
 
 const BurgerConstructor: React.FC<Props> = ({ data }) => {
+  const [showModal, setShowModal] = useState(false);
+
   const buns = useMemo(
     () => data.find((item) => item.type === "bun"),
     [data]
@@ -70,11 +73,22 @@ const BurgerConstructor: React.FC<Props> = ({ data }) => {
             <div className={`mr-10`}>
               <CurrencyIcon type="primary" />
             </div>
-            <Button htmlType="button" type="primary">
+            <Button
+              htmlType="button"
+              type="primary"
+              onClick={() => setShowModal(true)}
+            >
               Оформить заказ
             </Button>
           </div>
         </div>
+      )}
+
+      {showModal && (
+        <OrderDetails
+          onClose={() => setShowModal(false)}
+          orderNumber="034536"
+        />
       )}
     </section>
   );
