@@ -3,16 +3,14 @@ import {
   CurrencyIcon,
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import styles from "./BurgerIngredientsItem.module.scss";
+import { IngreditentsData } from "../../types";
 
 const BurgerIngredientsItem: React.FC<Props> = ({
-  imgSrc,
-  title,
-  price,
-  count,
+  item: { image, name, price, __v: count },
 }) => {
   return (
     <div className={styles.card}>
-      <img src={imgSrc} alt={title} className={`${styles.image} ml-4 mr-4`} />
+      <img src={image} alt={name} className={`${styles.image} ml-4 mr-4`} />
 
       {count !== undefined && count > 0 && <Counter count={count} />}
 
@@ -24,17 +22,14 @@ const BurgerIngredientsItem: React.FC<Props> = ({
       </div>
 
       <div className={`text text_type_main-default ${styles.title}`}>
-        {title}
+        {name}
       </div>
     </div>
   );
 };
 
 interface Props {
-  imgSrc: string;
-  title: string;
-  price: number;
-  count?: number;
+  item: IngreditentsData;
 }
 
 export default BurgerIngredientsItem;

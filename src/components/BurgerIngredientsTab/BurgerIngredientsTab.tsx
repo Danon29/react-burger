@@ -17,13 +17,7 @@ const BurgerIngredientsTab = React.forwardRef<HTMLDivElement, Props>(
         <div className={`${styles.cards} ml-4 mr-4 mt-6 mb-10`}>
           {data.map((card) => (
             <div onClick={() => onItemClick(card)} key={card._id}>
-              <BurgerIngredientsItem
-                key={card._id}
-                imgSrc={card.image}
-                title={card.name}
-                price={card.price}
-                count={card.__v}
-              />
+              <BurgerIngredientsItem key={card._id} item={card} />
             </div>
           ))}
         </div>

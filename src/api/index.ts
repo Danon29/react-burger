@@ -3,10 +3,10 @@ const DATA_URL = "https://norma.nomoreparties.space/api/ingredients";
 export const getData = () => {
   return fetch(DATA_URL)
     .then((res) => {
-      if (res.status !== 200) {
-        throw new Error("Data fetching error");
+      if (res.ok) {
+        return res.json();
       }
-      return res.json();
+      return Promise.reject(`Ошибка ${res.status}`);
     })
     .then((res) => {
       if (!res.success) {

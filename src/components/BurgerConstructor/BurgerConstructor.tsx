@@ -6,11 +6,13 @@ import {
   CurrencyIcon,
   DragIcon,
 } from "@ya.praktikum/react-developer-burger-ui-components";
-import { useMemo, useState } from "react";
+import { useMemo } from "react";
 import OrderDetails from "../OrderDetails/OrderDetails";
+import Modal from "../Modal/Modal";
+import { useModal } from "../../hooks/useModal";
 
 const BurgerConstructor: React.FC<Props> = ({ data }) => {
-  const [showModal, setShowModal] = useState(false);
+  const { isModalOpen, closeModal, openModal } = useModal();
 
   const buns = useMemo(
     () => data.find((item) => item.type === "bun"),
@@ -76,7 +78,7 @@ const BurgerConstructor: React.FC<Props> = ({ data }) => {
             <Button
               htmlType="button"
               type="primary"
-              onClick={() => setShowModal(true)}
+              onClick={() => openModal()}
             >
               Оформить заказ
             </Button>
@@ -84,11 +86,10 @@ const BurgerConstructor: React.FC<Props> = ({ data }) => {
         </div>
       )}
 
-      {showModal && (
-        <OrderDetails
-          onClose={() => setShowModal(false)}
-          orderNumber="034536"
-        />
+      {isModalOpen && (
+        <Modal onClose={() => closeModal()}>
+          <OrderDetails orderNumber="034536" />
+        </Modal>
       )}
     </section>
   );
