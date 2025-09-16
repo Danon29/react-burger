@@ -3,6 +3,9 @@ import styles from "./BurgerIngredients.module.scss";
 import { Tab } from "@ya.praktikum/react-developer-burger-ui-components";
 import { IngreditentsData } from "../../types";
 import BurgerIngredientsTab from "../BurgerIngredientsTab/BurgerIngredientsTab";
+import IngredientDetails from "../IngredientDetails/IngredientDetails";
+import Modal from "../Modal/Modal";
+import { useModal } from "../../hooks/useModal";
 
 const IngredientsTabsEnum = {
   BUN: { value: "BUN", label: "Булки" },
@@ -17,6 +20,12 @@ const BurgerIngredients: React.FC<Props> = ({ data }) => {
   const [currentTab, setCurrentTab] = useState<TabValue>(
     IngredientsTabsEnum.BUN.value
   );
+
+  const [detailedItem, setDetailedItem] = useState<IngreditentsData | null>(
+    null
+  );
+
+  const { openModal, isModalOpen, closeModal } = useModal();
 
   const refs = useRef<Record<TabValue, HTMLElement | null>>({
     BUN: null,
@@ -35,6 +44,11 @@ const BurgerIngredients: React.FC<Props> = ({ data }) => {
   const onTabChange = (value: TabValue) => {
     setCurrentTab(value);
     refs.current[value]?.scrollIntoView({ behavior: "smooth" });
+  };
+
+  const openIngredientsModal = (value: IngreditentsData) => {
+    setDetailedItem(value);
+    openModal();
   };
 
   return (
@@ -68,10 +82,23 @@ const BurgerIngredients: React.FC<Props> = ({ data }) => {
                   .label
               }
               data={value}
+              onItemClick={openIngredientsModal}
             />
           </div>
         ))}
       </div>
+
+      {isModalOpen && detailedItem && (
+        <Modal
+          title="Детали ингридиента"
+          onClose={() => {
+            closeModal();
+            setDetailedItem(null);
+          }}
+        >
+          <IngredientDetails item={detailedItem} />
+        </Modal>
+      )}
     </section>
   );
 };
