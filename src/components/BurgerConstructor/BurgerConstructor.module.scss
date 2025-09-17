@@ -27,4 +27,23 @@
     align-items: center;
     justify-content: flex-end;
   }
+
+  .empty-block {
+    display: flex;
+    align-items: center;
+    text-align: center;
+    justify-content: center;
+    height: 80px;
+
+    .empty-block__text {
+      height: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+  }
+
+  .empty-element-text {
+    flex: 1;
+  }
 }

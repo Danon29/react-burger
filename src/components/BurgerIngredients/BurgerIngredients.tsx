@@ -6,6 +6,10 @@ import BurgerIngredientsTab from "../BurgerIngredientsTab/BurgerIngredientsTab";
 import IngredientDetails from "../IngredientDetails/IngredientDetails";
 import Modal from "../Modal/Modal";
 import { useModal } from "../../hooks/useModal";
+import { useDispatch, useSelector } from "react-redux";
+import { RootState } from "../../app/rootReducer";
+import { AppDispatch } from "../../app/store";
+import { setCurrentIngredient } from "../../services/currentIngredient/currentIngredientSlice";
 
 const IngredientsTabsEnum = {
   BUN: { value: "BUN", label: "Булки" },
@@ -16,14 +20,19 @@ const IngredientsTabsEnum = {
 type TabValue =
   (typeof IngredientsTabsEnum)[keyof typeof IngredientsTabsEnum]["value"];
 
-const BurgerIngredients: React.FC<Props> = ({ data }) => {
-  const [currentTab, setCurrentTab] = useState<TabValue>(
+const BurgerIngredients: React.FC = () => {
+  const data = useSelector((state: RootState) => state.ingredients.items);
+
+  const [activeTab, setActiveTab] = useState<TabValue>(
     IngredientsTabsEnum.BUN.value
   );
+  const containerRef = useRef<HTMLDivElement>(null);
 
-  const [detailedItem, setDetailedItem] = useState<IngreditentsData | null>(
-    null
+  const detailedItem = useSelector(
+    (state: RootState) => state.currentIngredient.ingredient
   );
+
+  const dispatch = useDispatch<AppDispatch>();
 
   const { openModal, isModalOpen, closeModal } = useModal();
 
@@ -35,20 +44,42 @@ const BurgerIngredients: React.FC<Props> = ({ data }) => {
 
   const groups = useMemo<Record<TabValue, IngreditentsData[]>>(() => {
     return {
-      BUN: data.filter((i) => i.type === "bun"),
-      SAUCE: data.filter((i) => i.type === "sauce"),
-      MAIN: data.filter((i) => i.type === "main"),
+      BUN: data?.filter((i) => i.type === "bun"),
+      SAUCE: data?.filter((i) => i.type === "sauce"),
+      MAIN: data?.filter((i) => i.type === "main"),
     };
   }, [data]);
 
   const onTabChange = (value: TabValue) => {
-    setCurrentTab(value);
+    setActiveTab(value);
     refs.current[value]?.scrollIntoView({ behavior: "smooth" });
   };
 
   const openIngredientsModal = (value: IngreditentsData) => {
-    setDetailedItem(value);
+    dispatch(setCurrentIngredient(value));
     openModal();
+  };
+
+  const handleScroll = () => {
+    if (!containerRef.current) return;
+    const containerTop = containerRef.current.getBoundingClientRect().top;
+    let closestTab: TabValue | null = null;
+    let minDiff = Infinity;
+
+    (Object.keys(refs.current) as TabValue[]).forEach((tab) => {
+      const ref = refs.current[tab];
+      if (ref) {
+        const diff = Math.abs(ref.getBoundingClientRect().top - containerTop);
+        if (diff < minDiff) {
+          minDiff = diff;
+          closestTab = tab;
+        }
+      }
+    });
+
+    if (closestTab && closestTab !== activeTab) {
+      setActiveTab(closestTab);
+    }
   };
 
   return (
@@ -60,7 +91,7 @@ const BurgerIngredients: React.FC<Props> = ({ data }) => {
           <Tab
             key={v.value}
             value={v.value}
-            active={currentTab === v.value}
+            active={activeTab === v.value}
             onClick={() => onTabChange(v.value)}
           >
             {v.label}
@@ -68,7 +99,11 @@ const BurgerIngredients: React.FC<Props> = ({ data }) => {
         ))}
       </div>
 
-      <div className={`${styles.ingredientsWrapper} mt-10 custom-scroll`}>
+      <div
+        ref={containerRef}
+        className={`${styles.ingredientsWrapper} mt-10 custom-scroll`}
+        onScroll={handleScroll}
+      >
         {Object.entries(groups).map(([key, value]) => (
           <div
             key={key}
@@ -93,7 +128,7 @@ const BurgerIngredients: React.FC<Props> = ({ data }) => {
           title="Детали ингридиента"
           onClose={() => {
             closeModal();
-            setDetailedItem(null);
+            dispatch(setCurrentIngredient(null));
           }}
         >
           <IngredientDetails item={detailedItem} />
@@ -104,7 +139,3 @@ const BurgerIngredients: React.FC<Props> = ({ data }) => {
 };
 
 export default BurgerIngredients;
-
-interface Props {
-  data: IngreditentsData[];
-}
