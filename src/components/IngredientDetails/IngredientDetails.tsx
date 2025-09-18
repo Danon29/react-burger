@@ -1,5 +1,4 @@
 import { IngreditentsData } from "../../types";
-import Modal from "../Modal/Modal";
 import styles from "./IngredientDetails.module.scss";
 
 const IngredientDetails: React.FC<Props> = ({ item }) => {
