@@ -6,10 +6,8 @@ import BurgerIngredientsTab from "../BurgerIngredientsTab/BurgerIngredientsTab";
 import IngredientDetails from "../IngredientDetails/IngredientDetails";
 import Modal from "../Modal/Modal";
 import { useModal } from "../../hooks/useModal";
-import { useDispatch, useSelector } from "react-redux";
-import { RootState } from "../../app/rootReducer";
-import { AppDispatch } from "../../app/store";
 import { setCurrentIngredient } from "../../services/currentIngredient/currentIngredientSlice";
+import { useAppDispatch, useAppSelector } from "../../hooks/reduxHooks";
 
 const IngredientsTabsEnum = {
   BUN: { value: "BUN", label: "Булки" },
@@ -21,18 +19,18 @@ type TabValue =
   (typeof IngredientsTabsEnum)[keyof typeof IngredientsTabsEnum]["value"];
 
 const BurgerIngredients: React.FC = () => {
-  const data = useSelector((state: RootState) => state.ingredients.items);
+  const data = useAppSelector((state) => state.ingredients.items);
 
   const [activeTab, setActiveTab] = useState<TabValue>(
     IngredientsTabsEnum.BUN.value
   );
   const containerRef = useRef<HTMLDivElement>(null);
 
-  const detailedItem = useSelector(
-    (state: RootState) => state.currentIngredient.ingredient
+  const detailedItem = useAppSelector(
+    (state) => state.currentIngredient.ingredient
   );
 
-  const dispatch = useDispatch<AppDispatch>();
+  const dispatch = useAppDispatch();
 
   const { openModal, isModalOpen, closeModal } = useModal();
 

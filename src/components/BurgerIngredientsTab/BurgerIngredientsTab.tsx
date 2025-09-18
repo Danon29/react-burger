@@ -2,8 +2,7 @@ import React, { ForwardedRef } from "react";
 import { IngreditentsData } from "../../types";
 import BurgerIngredientsItem from "../BurgerIngredientsItem/BurgerIngredientsItem";
 import styles from "./BurgerIngredientsTab.module.scss";
-import { useSelector } from "react-redux";
-import { RootState } from "../../app/rootReducer";
+import { useAppSelector } from "../../hooks/reduxHooks";
 
 interface Props {
   title: string;
@@ -13,9 +12,7 @@ interface Props {
 
 const BurgerIngredientsTab = React.forwardRef<HTMLDivElement, Props>(
   ({ title, data, onItemClick }: Props, ref: ForwardedRef<HTMLDivElement>) => {
-    const counts = useSelector(
-      (state: RootState) => state.constructorState.counts
-    );
+    const counts = useAppSelector((state) => state.constructorState.counts);
 
     return (
       <div ref={ref} className={styles.tab}>

@@ -3,12 +3,11 @@ import "./App.scss";
 import AppHeader from "../components/AppHeader/AppHeader";
 import BurgerConstructor from "../components/BurgerConstructor/BurgerConstructor";
 import BurgerIngredients from "../components/BurgerIngredients/BurgerIngredients";
-import { useDispatch } from "react-redux";
-import { AppDispatch } from "./store";
 import { fetchIngredients } from "../services/ingredients/ingredientsSlice";
+import { useAppDispatch } from "../hooks/reduxHooks";
 
 function App() {
-  const dispatch = useDispatch<AppDispatch>();
+  const dispatch = useAppDispatch();
 
   useEffect(() => {
     dispatch(fetchIngredients());

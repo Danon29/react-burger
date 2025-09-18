@@ -4,9 +4,9 @@ import "./index.css";
 import { Provider } from "react-redux";
 import App from "./app/App";
 import reportWebVitals from "./reportWebVitals";
-import { store } from "./app/store";
 import { DndProvider } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
+import { store } from "./services/store";
 
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement

@@ -1,10 +1,15 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { IngreditentsData } from "../../types";
+import { v4 as uuidv4 } from "uuid";
 
 interface ConstructorState {
   bun: IngreditentsData | null;
-  items: IngreditentsData[];
+  items: ConstructorIngredient[];
   counts: Record<string, number>;
+}
+
+interface ConstructorIngredient extends IngreditentsData {
+  uniqueId: string;
 }
 
 const initialState: ConstructorState = {
@@ -22,18 +27,23 @@ const constructorSlice = createSlice({
   name: "constructor",
   initialState,
   reducers: {
-    addConstructorIngredient(state, action: PayloadAction<IngreditentsData>) {
-      if (action.payload.type === "bun") {
-        state.bun = action.payload;
-      } else {
-        state.items.push(action.payload);
-        const id = action.payload._id;
-        if (state.counts[id]) {
-          state.counts[id] += 1;
+    addConstructorIngredient: {
+      reducer(state, action: PayloadAction<ConstructorIngredient>) {
+        if (action.payload.type === "bun") {
+          state.bun = action.payload;
         } else {
-          state.counts[id] = 1;
+          state.items.push(action.payload);
+          const id = action.payload._id;
+          if (state.counts[id]) {
+            state.counts[id] += 1;
+          } else {
+            state.counts[id] = 1;
+          }
         }
-      }
+      },
+      prepare(ingredient: IngreditentsData) {
+        return { payload: { ...ingredient, uniqueId: uuidv4() } };
+      },
     },
     replaceBun(state, action: PayloadAction<IngreditentsData>) {
       state.bun = action.payload;

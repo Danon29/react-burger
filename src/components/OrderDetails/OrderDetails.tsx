@@ -1,12 +1,9 @@
 import styles from "./OrderDetails.module.scss";
 import img from "../../images/done.jpg";
-import { useSelector } from "react-redux";
-import { RootState } from "../../app/rootReducer";
+import { useAppSelector } from "../../hooks/reduxHooks";
 
 const OrderDetails: React.FC = () => {
-  const orderNumber = useSelector(
-    (state: RootState) => state.order.orderNumber
-  );
+  const orderNumber = useAppSelector((state) => state.order.orderNumber);
   return (
     <div className={`${styles.container} mt-10`}>
       <p

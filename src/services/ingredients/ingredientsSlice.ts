@@ -17,13 +17,10 @@ const initialState: IngredientsState = {
 
 export const fetchIngredients = createAsyncThunk(
   "ingredients/fetchAndSync",
-  async (_, { dispatch, rejectWithValue }) => {
+  async (_, { rejectWithValue }) => {
     try {
       const response = await getData();
-      const firstBun = response.find(
-        (item: IngreditentsData) => item.type === "bun"
-      );
-      if (firstBun) dispatch(replaceBun(firstBun));
+
       return response;
     } catch (error) {
       return rejectWithValue(

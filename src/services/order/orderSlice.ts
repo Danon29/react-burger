@@ -1,4 +1,5 @@
-import { createSlice, createAsyncThunk, PayloadAction } from "@reduxjs/toolkit";
+import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+import { customRequest } from "../../utils";
 
 interface OrderState {
   orderNumber: string | null;
@@ -30,24 +31,14 @@ export const postOrder = createAsyncThunk<
   { rejectValue: string }
 >("order/postOrder", async (payload, { rejectWithValue }) => {
   try {
-    debugger;
-    const response = await fetch(
-      "https://norma.nomoreparties.space/api/orders",
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(payload),
-      }
-    );
+    const data = await customRequest(`/orders`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(payload),
+    });
 
-    if (!response.ok) {
-      const errorData = await response.json();
-      return rejectWithValue(errorData.message);
-    }
-
-    const data: OrderResponse = await response.json();
     return data;
   } catch (error) {
     return rejectWithValue(
