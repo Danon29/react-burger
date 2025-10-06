@@ -1,7 +1,9 @@
 import styles from "./OrderDetails.module.scss";
 import img from "../../images/done.jpg";
+import { useAppSelector } from "../../hooks/reduxHooks";
 
-const OrderDetails: React.FC<Props> = ({ orderNumber }) => {
+const OrderDetails: React.FC = () => {
+  const orderNumber = useAppSelector((state) => state.order.orderNumber);
   return (
     <div className={`${styles.container} mt-10`}>
       <p
@@ -24,7 +26,3 @@ const OrderDetails: React.FC<Props> = ({ orderNumber }) => {
 };
 
 export default OrderDetails;
-
-interface Props {
-  orderNumber: string;
-}
