@@ -1,0 +1,9 @@
+export { default as MainPage } from "./main/MainPage";
+export { default as LoginPage } from "./login/Login";
+export { default as RegisterPage } from "./register/Register";
+export { default as ForgotPasswordPage } from "./forgotPassword/ForgotPassword";
+export { default as ResetPasswordPage } from "./resetPassword/ResetPassword";
+export { default as ProfilePage } from "./profile/Profile";
+export { default as ProfileEditPage } from "./profile-edit/ProfileEdit";
+export { default as NotFoundPage } from "./notFound/NotFound";
+export { default as ProfileOrdersPage } from "./profile-orders/ProfileOrders";

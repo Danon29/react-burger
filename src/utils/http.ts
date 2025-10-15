@@ -1,4 +1,4 @@
-import { DATA_URL } from "../api";
+import { BASE_URL } from "../api";
 
 export function checkResponse<T = any>(res: Response): Promise<T> {
   if (res.ok) {
@@ -11,7 +11,7 @@ export function checkResponse<T = any>(res: Response): Promise<T> {
 
 export function customRequest<T = any>(
   endpoint: string,
-  options?: RequestInit
+  options?: RequestInit,
 ): Promise<T> {
-  return fetch(`${DATA_URL}${endpoint}`, options).then(checkResponse);
+  return fetch(`${BASE_URL}${endpoint}`, options).then(checkResponse);
 }

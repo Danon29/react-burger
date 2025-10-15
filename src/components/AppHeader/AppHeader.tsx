@@ -12,10 +12,10 @@ const AppHeader: React.FC = () => {
     <header className={styles.header}>
       <div className={styles.container}>
         <div className={styles.left}>
-          <IconLink href="/" icon={BurgerIcon} isLinkActive>
+          <IconLink href="/" icon={BurgerIcon}>
             Конструктор
           </IconLink>
-          <IconLink href="/" icon={ListIcon}>
+          <IconLink href="/feed" icon={ListIcon}>
             Лента заказов
           </IconLink>
         </div>
@@ -25,7 +25,7 @@ const AppHeader: React.FC = () => {
         </div>
 
         <div className={styles.right}>
-          <IconLink href="/" icon={ProfileIcon}>
+          <IconLink href="/profile" icon={ProfileIcon}>
             Личный кабинет
           </IconLink>
         </div>

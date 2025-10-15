@@ -1,11 +1,9 @@
 import { useMemo, useRef, useState } from "react";
+import { useNavigate, useLocation } from "react-router-dom";
 import styles from "./BurgerIngredients.module.scss";
 import { Tab } from "@ya.praktikum/react-developer-burger-ui-components";
 import { IngreditentsData } from "../../types";
 import BurgerIngredientsTab from "../BurgerIngredientsTab/BurgerIngredientsTab";
-import IngredientDetails from "../IngredientDetails/IngredientDetails";
-import Modal from "../Modal/Modal";
-import { useModal } from "../../hooks/useModal";
 import { setCurrentIngredient } from "../../services/currentIngredient/currentIngredientSlice";
 import { useAppDispatch, useAppSelector } from "../../hooks/reduxHooks";
 
@@ -20,19 +18,15 @@ type TabValue =
 
 const BurgerIngredients: React.FC = () => {
   const data = useAppSelector((state) => state.ingredients.items);
+  const navigate = useNavigate();
+  const location = useLocation();
 
   const [activeTab, setActiveTab] = useState<TabValue>(
-    IngredientsTabsEnum.BUN.value
+    IngredientsTabsEnum.BUN.value,
   );
   const containerRef = useRef<HTMLDivElement>(null);
 
-  const detailedItem = useAppSelector(
-    (state) => state.currentIngredient.ingredient
-  );
-
   const dispatch = useAppDispatch();
-
-  const { openModal, isModalOpen, closeModal } = useModal();
 
   const refs = useRef<Record<TabValue, HTMLElement | null>>({
     BUN: null,
@@ -55,7 +49,12 @@ const BurgerIngredients: React.FC = () => {
 
   const openIngredientsModal = (value: IngreditentsData) => {
     dispatch(setCurrentIngredient(value));
-    openModal();
+    const itemId = data.findIndex((item) => item.name === value.name);
+    if (itemId !== -1) {
+      navigate(`/ingredients/${itemId}`, {
+        state: { background: location },
+      });
+    }
   };
 
   const handleScroll = () => {
@@ -120,18 +119,6 @@ const BurgerIngredients: React.FC = () => {
           </div>
         ))}
       </div>
-
-      {isModalOpen && detailedItem && (
-        <Modal
-          title="Детали ингридиента"
-          onClose={() => {
-            closeModal();
-            dispatch(setCurrentIngredient(null));
-          }}
-        >
-          <IngredientDetails item={detailedItem} />
-        </Modal>
-      )}
     </section>
   );
 };

@@ -30,8 +30,10 @@ const BurgerConstructor: React.FC = () => {
     () =>
       (buns?.price as number) * 2 +
       data.reduce((sum, item) => (sum += item.price), 0),
-    [data, buns]
+    [data, buns],
   );
+
+  const user = useAppSelector((state) => state.auth.user);
 
   const deleteIngredientFromConstructor = (index: number) => {
     dispatch(removeConstructorIngredient(index));
@@ -62,7 +64,7 @@ const BurgerConstructor: React.FC = () => {
 
   const ingredients = [
     ...useAppSelector((state) => state.constructorState.items).map(
-      (item) => item._id
+      (item) => item._id,
     ),
     ...(bun ? [bun._id, bun._id] : []),
   ];
@@ -137,6 +139,7 @@ const BurgerConstructor: React.FC = () => {
                 <Button
                   htmlType="button"
                   type="primary"
+                  disabled={!user}
                   onClick={() => {
                     dispatch(postOrder({ ingredients }))
                       .unwrap()
