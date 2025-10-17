@@ -22,17 +22,12 @@ import {
 import IngredientDetailPage from "../pages/ingredient-detail/IngredientDetailPage";
 import Modal from "../components/Modal/Modal";
 import IngredientDetails from "../components/IngredientDetails/IngredientDetails";
-import { useAppSelector } from "../hooks/reduxHooks";
-import { IngreditentsData } from "../types";
 import { fetchAuthUser } from "../services/auth/authSlice";
 
 function App() {
   const dispatch = useAppDispatch();
   const location = useLocation();
   const navigate = useNavigate();
-  const detailedItem = useAppSelector(
-    (state) => state.currentIngredient.ingredient,
-  );
 
   const background = location.state && location.state.background;
 
@@ -77,10 +72,7 @@ function App() {
               element={<AuthedRoute element={<ProfileOrdersPage />} />}
             />
           </Route>
-          <Route
-            path="/ingredients/:id"
-            element={<AuthedRoute element={<IngredientDetailPage />} />}
-          />
+          <Route path="/ingredients/:id" element={<IngredientDetailPage />} />
           <Route path="*" element={<NotFoundPage />} />
         </Routes>
 
@@ -90,7 +82,7 @@ function App() {
               path="/ingredients/:id"
               element={
                 <Modal title="Детали ингредиента" onClose={handleModalClose}>
-                  <IngredientDetails item={detailedItem as IngreditentsData} />
+                  <IngredientDetails />
                 </Modal>
               }
             />

@@ -1,7 +1,37 @@
-import { IngreditentsData } from "../../types";
 import styles from "./IngredientDetails.module.scss";
+import { useNavigate, useParams } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { IngreditentsData } from "../../types";
+import { useAppDispatch } from "../../hooks/reduxHooks";
+import { fetchIngredients } from "../../services/ingredients/ingredientsSlice";
 
-const IngredientDetails: React.FC<Props> = ({ item }) => {
+const IngredientDetails: React.FC = () => {
+  const { id } = useParams<{ id: string }>();
+  const navigate = useNavigate();
+  const [item, setItem] = useState<IngreditentsData | null>(null);
+  const dispatch = useAppDispatch();
+
+  useEffect(() => {
+    const getItem = async () => {
+      dispatch(fetchIngredients()).then((resultAction) => {
+        if (fetchIngredients.fulfilled.match(resultAction)) {
+          const items = resultAction.payload;
+          const foundIngredient = items[Number(id)];
+          if (foundIngredient) {
+            setItem(foundIngredient);
+          } else {
+            navigate("/");
+          }
+        } else {
+          navigate("/");
+        }
+      });
+    };
+
+    getItem();
+  }, [id, navigate, dispatch]);
+
+  if (!item) return null;
   return (
     <div className={`${styles.container}`}>
       <img
@@ -51,7 +81,3 @@ const IngredientDetails: React.FC<Props> = ({ item }) => {
 };
 
 export default IngredientDetails;
-
-interface Props {
-  item: IngreditentsData;
-}

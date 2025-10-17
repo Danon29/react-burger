@@ -18,6 +18,7 @@ import {
 import DraggableIngredient from "../DraggableIngredient/DraggableIngredient";
 import { postOrder } from "../../services/order/orderSlice";
 import { useAppDispatch, useAppSelector } from "../../hooks/reduxHooks";
+import { useNavigate } from "react-router-dom";
 
 const BurgerConstructor: React.FC = () => {
   const { isModalOpen, closeModal, openModal } = useModal();
@@ -35,6 +36,7 @@ const BurgerConstructor: React.FC = () => {
 
   const user = useAppSelector((state) => state.auth.user);
 
+  const navigate = useNavigate();
   const deleteIngredientFromConstructor = (index: number) => {
     dispatch(removeConstructorIngredient(index));
   };
@@ -139,8 +141,8 @@ const BurgerConstructor: React.FC = () => {
                 <Button
                   htmlType="button"
                   type="primary"
-                  disabled={!user}
                   onClick={() => {
+                    if (!user) navigate("/login");
                     dispatch(postOrder({ ingredients }))
                       .unwrap()
                       .then(() => {

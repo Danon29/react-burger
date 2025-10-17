@@ -37,9 +37,7 @@ export const registerUser = createAsyncThunk<
       dispatch(setIsLoading(true));
       const result = await register({ email, password, name });
       if (result.success) {
-        return {
-          user: result.user,
-        };
+        dispatch(setUser({ email: result.user.email, name: result.user.name }));
       }
       return rejectWithValue("Authentication failed");
     } catch (error: any) {
