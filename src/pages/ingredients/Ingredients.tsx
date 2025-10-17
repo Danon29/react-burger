@@ -1,21 +1,19 @@
 import React, { useEffect, useState } from "react";
 import styles from "./Ingredients.module.scss";
-import { useSelector, useDispatch } from "react-redux";
-import type { AppDispatch } from "../../services/store";
+import { useAppDispatch, useAppSelector } from "../../hooks/reduxHooks";
 import { useParams, useNavigate } from "react-router-dom";
 import { IngreditentsData } from "../../types";
-import { RootState } from "../../services/rootReducer";
 
 const IngredientsPage = (): React.JSX.Element => {
-  const dispatch = useDispatch<AppDispatch>();
+  const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const { ingredientId } = useParams<"ingredientId">();
   const [ingredient, setIngredient] = useState<null | IngreditentsData>(null);
-  const { items } = useSelector((state: RootState) => state.ingredients);
+  const { items } = useAppSelector((state) => state.ingredients);
 
   useEffect(() => {
     const ingredient = items.find(
-      (ingr: IngreditentsData) => ingr._id === ingredientId,
+      (ingr: IngreditentsData) => ingr._id === ingredientId
     );
     if (ingredient) {
       setIngredient(ingredient);

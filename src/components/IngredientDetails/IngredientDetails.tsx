@@ -15,8 +15,8 @@ const IngredientDetails: React.FC = () => {
     const getItem = async () => {
       dispatch(fetchIngredients()).then((resultAction) => {
         if (fetchIngredients.fulfilled.match(resultAction)) {
-          const items = resultAction.payload;
-          const foundIngredient = items[Number(id)];
+          const items = resultAction.payload as IngreditentsData[];
+          const foundIngredient = items.find((ing) => ing._id === id);
           if (foundIngredient) {
             setItem(foundIngredient);
           } else {

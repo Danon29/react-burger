@@ -37,7 +37,9 @@ export const registerUser = createAsyncThunk<
       dispatch(setIsLoading(true));
       const result = await register({ email, password, name });
       if (result.success) {
-        dispatch(setUser({ email: result.user.email, name: result.user.name }));
+        const user = { email: result.user.email, name: result.user.name };
+        dispatch(setUser(user));
+        return { user };
       }
       return rejectWithValue("Authentication failed");
     } catch (error: any) {
@@ -49,7 +51,7 @@ export const registerUser = createAsyncThunk<
 );
 
 export const loginUser = createAsyncThunk<
-  void,
+  { user: User },
   { email: string; password: string },
   { rejectValue: string }
 >(
@@ -59,7 +61,9 @@ export const loginUser = createAsyncThunk<
       dispatch(setIsLoading(true));
       const result = await login({ email, password });
       if (result.success) {
-        dispatch(setUser({ email: result.user.email, name: result.user.name }));
+        const user = { email: result.user.email, name: result.user.name };
+        dispatch(setUser(user));
+        return { user };
       }
       return rejectWithValue("Authentication failed");
     } catch (error: any) {
@@ -104,7 +108,7 @@ export const updateUser = createAsyncThunk(
 );
 
 export const fetchAuthUser = createAsyncThunk<
-  User,
+  { user: User | null },
   void,
   {
     rejectValue: string;
@@ -112,9 +116,12 @@ export const fetchAuthUser = createAsyncThunk<
 >("auth/fetchAuthUser", async (_, { rejectWithValue, dispatch }) => {
   try {
     const result = await getUserData();
-
-    if (result.success) dispatch(setUser(result.user));
-    return rejectWithValue("user error");
+    if (result.success) {
+      const user = { email: result.user.email, name: result.user.name };
+      dispatch(setUser(user));
+      return { user };
+    }
+    return { user: null };
   } catch (error: any) {
     return rejectWithValue(error.message);
   } finally {
@@ -148,6 +155,7 @@ const authSlice = createSlice({
     builder
       .addCase(loginUser.fulfilled, (state) => {
         state.isAuthChecked = true;
+        state.error = null;
       })
       .addCase(registerUser.fulfilled, (state) => {
         state.isAuthChecked = true;

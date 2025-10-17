@@ -2,10 +2,9 @@ import {
   Button,
   EmailInput,
 } from "@ya.praktikum/react-developer-burger-ui-components";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { forgotPassword } from "../../utils/authApi";
-import { useAppSelector } from "../../hooks/reduxHooks";
 
 const ForgotPassword: React.FC = () => {
   const [emailValue, setEmailValue] = useState("");
@@ -20,7 +19,7 @@ const ForgotPassword: React.FC = () => {
           setLoading(true);
           const result = await forgotPassword(emailValue);
           if (result.message === "Reset email sent")
-            navigate("/reset-password");
+            navigate("/reset-password", { state: { fromForgot: true } });
         } catch (error) {
           console.log(error);
         } finally {

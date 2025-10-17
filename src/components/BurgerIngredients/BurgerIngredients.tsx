@@ -49,8 +49,8 @@ const BurgerIngredients: React.FC = () => {
 
   const openIngredientsModal = (value: IngreditentsData) => {
     dispatch(setCurrentIngredient(value));
-    const itemId = data.findIndex((item) => item.name === value.name);
-    if (itemId !== -1) {
+    const itemId = value._id;
+    if (itemId) {
       navigate(`/ingredients/${itemId}`, {
         state: { background: location },
       });
@@ -84,7 +84,7 @@ const BurgerIngredients: React.FC = () => {
       <h1 className="text text_type_main-large">Соберите бургер</h1>
 
       <div className={`mt-10 ${styles.tabs}`}>
-        {Object.entries(IngredientsTabsEnum).map(([key, v]) => (
+        {Object.entries(IngredientsTabsEnum).map(([_, v]) => (
           <Tab
             key={v.value}
             value={v.value}

@@ -3,8 +3,8 @@ import {
   Input,
   PasswordInput,
 } from "@ya.praktikum/react-developer-burger-ui-components";
-import { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import React, { useState } from "react";
+import { Link, Navigate, useLocation, useNavigate } from "react-router-dom";
 import { resetPasword } from "../../utils/authApi";
 
 const ForgotPassword: React.FC = () => {
@@ -13,6 +13,11 @@ const ForgotPassword: React.FC = () => {
   const [loading, setLoading] = useState(false);
 
   const navigate = useNavigate();
+  const location = useLocation();
+
+  if (!(location.state && (location.state as any).fromForgot)) {
+    return <Navigate to="/forgot-password" replace />;
+  }
 
   return (
     <form
@@ -24,8 +29,7 @@ const ForgotPassword: React.FC = () => {
             password: passwordValue,
             code: codeValue,
           });
-          if (result.message === "Reset email sent")
-            navigate("/reset-password");
+          if (result.success) navigate("/login", { replace: true });
         } catch (error) {
           console.log(error);
         } finally {

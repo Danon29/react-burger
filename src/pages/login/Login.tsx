@@ -4,26 +4,27 @@ import {
   PasswordInput,
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import { useEffect, useState } from "react";
-import { useDispatch } from "react-redux";
-import { Link, useNavigate } from "react-router-dom";
+import { useAppDispatch } from "../../hooks/reduxHooks";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useAppSelector } from "../../hooks/reduxHooks";
 import { loginUser } from "../../services/auth/authSlice";
-import { AppDispatch } from "../../services/store";
 import Spinner from "../../components/Spinner/Spinner";
 
 const Login: React.FC = () => {
   const [emailValue, setEmailValue] = useState("");
   const [passwordValue, setPasswordValue] = useState("");
-  const dispatch = useDispatch<AppDispatch>();
+  const dispatch = useAppDispatch();
   const navigate = useNavigate();
+  const location = useLocation();
 
   const { loading, error, user } = useAppSelector((store) => store.auth);
 
   useEffect(() => {
     if (user) {
-      navigate("/", { replace: true });
+      const from = (location.state as any)?.from?.pathname || "/";
+      navigate(from, { replace: true });
     }
-  }, [user, navigate]);
+  }, [user, navigate, location.state]);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();

@@ -6,8 +6,10 @@ import {
   Logo,
   ProfileIcon,
 } from "@ya.praktikum/react-developer-burger-ui-components";
+import { useNavigate } from "react-router-dom";
 
 const AppHeader: React.FC = () => {
+  const navigate = useNavigate();
   return (
     <header className={styles.header}>
       <div className={styles.container}>
@@ -20,7 +22,7 @@ const AppHeader: React.FC = () => {
           </IconLink>
         </div>
 
-        <div className={styles.center}>
+        <div className={styles.center} onClick={() => navigate("/")}>
           <Logo />
         </div>
 

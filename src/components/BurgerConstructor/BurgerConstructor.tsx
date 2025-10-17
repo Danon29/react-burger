@@ -11,6 +11,7 @@ import { useModal } from "../../hooks/useModal";
 import { useDrop } from "react-dnd";
 import {
   addConstructorIngredient,
+  clearConstructor,
   removeConstructorIngredient,
   reorderIngredients,
   replaceBun,
@@ -19,6 +20,7 @@ import DraggableIngredient from "../DraggableIngredient/DraggableIngredient";
 import { postOrder } from "../../services/order/orderSlice";
 import { useAppDispatch, useAppSelector } from "../../hooks/reduxHooks";
 import { useNavigate } from "react-router-dom";
+import Spinner from "../Spinner/Spinner";
 
 const BurgerConstructor: React.FC = () => {
   const { isModalOpen, closeModal, openModal } = useModal();
@@ -35,6 +37,8 @@ const BurgerConstructor: React.FC = () => {
   );
 
   const user = useAppSelector((state) => state.auth.user);
+
+  const status = useAppSelector((state) => state.order.status);
 
   const navigate = useNavigate();
   const deleteIngredientFromConstructor = (index: number) => {
@@ -132,29 +136,44 @@ const BurgerConstructor: React.FC = () => {
               </div>
 
               <div className={`${styles.priceContainer} mt-10 mr-15`}>
-                <div className="text text_type_digits-medium mr-2 mb-1">
-                  {sum}
-                </div>
-                <div className={`mr-10`}>
-                  <CurrencyIcon type="primary" />
-                </div>
-                <Button
-                  htmlType="button"
-                  type="primary"
-                  onClick={() => {
-                    if (!user) navigate("/login");
-                    dispatch(postOrder({ ingredients }))
-                      .unwrap()
-                      .then(() => {
-                        openModal();
-                      })
-                      .catch((error) => {
-                        console.error(error);
-                      });
-                  }}
-                >
-                  Оформить заказ
-                </Button>
+                {status === "loading" ? (
+                  <div
+                    style={{
+                      width: "100%",
+                      display: "flex",
+                      justifyContent: "center",
+                    }}
+                  >
+                    <Spinner />
+                  </div>
+                ) : (
+                  <>
+                    <div className="text text_type_digits-medium mr-2 mb-1">
+                      {sum}
+                    </div>
+                    <div className={`mr-10`}>
+                      <CurrencyIcon type="primary" />
+                    </div>
+                    <Button
+                      htmlType="button"
+                      type="primary"
+                      onClick={() => {
+                        if (!user) navigate("/login");
+                        dispatch(postOrder({ ingredients }))
+                          .unwrap()
+                          .then(() => {
+                            dispatch(clearConstructor());
+                            openModal();
+                          })
+                          .catch((error) => {
+                            console.error(error);
+                          });
+                      }}
+                    >
+                      Оформить заказ
+                    </Button>
+                  </>
+                )}
               </div>
             </>
           )}

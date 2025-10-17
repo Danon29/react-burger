@@ -1,7 +1,6 @@
 import React, { useEffect } from "react";
-import { useSelector } from "react-redux";
+import { useAppSelector } from "../../hooks/reduxHooks";
 import { Navigate, useLocation, useNavigate } from "react-router-dom";
-import { RootState } from "../../services/rootReducer";
 import { getIsAuthChecked } from "../../services/auth/authSlice";
 
 interface ProtectedRouteProps {
@@ -16,9 +15,9 @@ const ProtectedRoute: React.FC<ProtectedRouteProps> = ({
   const location = useLocation();
   const navigate = useNavigate();
 
-  const isAuthChecked = useSelector(getIsAuthChecked);
+  const isAuthChecked = useAppSelector(getIsAuthChecked);
 
-  const { error, user } = useSelector((state: RootState) => state.auth);
+  const { error, user } = useAppSelector((state) => state.auth);
 
   useEffect(() => {
     if (error) {
@@ -31,11 +30,12 @@ const ProtectedRoute: React.FC<ProtectedRouteProps> = ({
   }
 
   if (onlyAuthedAccess && !user) {
-    return <Navigate to="/login" replace />;
+    return <Navigate to="/login" replace state={{ from: location }} />;
   }
 
   if (!onlyAuthedAccess && user) {
-    return <Navigate to={"/"} replace />;
+    const from = (location.state as any)?.from?.pathname || "/";
+    return <Navigate to={from} replace />;
   }
 
   return <>{element}</>;

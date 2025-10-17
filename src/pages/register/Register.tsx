@@ -6,9 +6,7 @@ import {
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import React, { FormEvent, useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { useAppSelector } from "../../hooks/reduxHooks";
-import { useDispatch } from "react-redux";
-import { AppDispatch } from "../../services/store";
+import { useAppDispatch, useAppSelector } from "../../hooks/reduxHooks";
 import { registerUser } from "../../services/auth/authSlice";
 import Spinner from "../../components/Spinner/Spinner";
 
@@ -16,7 +14,7 @@ const Register: React.FC = () => {
   const [name, setNameValue] = useState("");
   const [emailValue, setEmailValue] = useState("");
   const [passwordValue, setPasswordValue] = useState("");
-  const dispatch = useDispatch<AppDispatch>();
+  const dispatch = useAppDispatch();
   const navigate = useNavigate();
 
   const { loading, error, user } = useAppSelector((store) => store.auth);
