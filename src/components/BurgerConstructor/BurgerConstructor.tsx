@@ -158,7 +158,7 @@ const BurgerConstructor: React.FC = () => {
                       htmlType="button"
                       type="primary"
                       onClick={() => {
-                        if (!user) navigate("/login");
+                        if (!user) return navigate("/login");
                         dispatch(postOrder({ ingredients }))
                           .unwrap()
                           .then(() => {
