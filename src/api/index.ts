@@ -1,11 +1,11 @@
 import { IngreditentsData } from "../types";
-import { customRequest } from "../utils";
+import { customRequest } from "../utils/http";
 
-export const DATA_URL = "https://norma.nomoreparties.space/api";
+export const BASE_URL = "https://norma.nomoreparties.space/api";
 
 export const getData = () => {
   return customRequest<{ success: boolean; data: IngreditentsData[] }>(
-    "/ingredients"
+    "/ingredients",
   ).then((res) => {
     if (!res.success) throw new Error("Some error");
     if (!res.data || res.data.length === 0)

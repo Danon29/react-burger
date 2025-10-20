@@ -1,5 +1,5 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import { customRequest } from "../../utils";
+import { customRequest } from "../../utils/http";
 
 interface OrderState {
   orderNumber: string | null;
@@ -42,7 +42,7 @@ export const postOrder = createAsyncThunk<
     return data;
   } catch (error) {
     return rejectWithValue(
-      error instanceof Error ? error.message : "Some error"
+      error instanceof Error ? error.message : "Some error",
     );
   }
 });
