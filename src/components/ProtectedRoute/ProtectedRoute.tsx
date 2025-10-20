@@ -34,7 +34,8 @@ const ProtectedRoute: React.FC<ProtectedRouteProps> = ({
   }
 
   if (!onlyAuthedAccess && user) {
-    const from = (location.state as any)?.from?.pathname || "/";
+    const from =
+      (location.state as { from: { pathname: string } })?.from?.pathname || "/";
     return <Navigate to={from} replace />;
   }
 

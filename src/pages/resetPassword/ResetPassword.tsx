@@ -15,7 +15,9 @@ const ForgotPassword: React.FC = () => {
   const navigate = useNavigate();
   const location = useLocation();
 
-  if (!(location.state && (location.state as any).fromForgot)) {
+  if (
+    !(location.state && (location.state as { fromForgot: boolean }).fromForgot)
+  ) {
     return <Navigate to="/forgot-password" replace />;
   }
 
