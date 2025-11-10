@@ -42,8 +42,10 @@ export const registerUser = createAsyncThunk<
         return { user };
       }
       return rejectWithValue("Authentication failed");
-    } catch (error: any) {
-      return rejectWithValue(error.message || "Some error");
+    } catch (error: unknown) {
+      return rejectWithValue(
+        error instanceof Error ? error.message : "Some error",
+      );
     } finally {
       dispatch(setIsLoading(false));
     }
@@ -66,8 +68,10 @@ export const loginUser = createAsyncThunk<
         return { user };
       }
       return rejectWithValue("Authentication failed");
-    } catch (error: any) {
-      return rejectWithValue(error.message || "Some error");
+    } catch (error: unknown) {
+      return rejectWithValue(
+        error instanceof Error ? error.message : "Some error",
+      );
     } finally {
       dispatch(setIsLoading(false));
     }
@@ -86,8 +90,10 @@ export const logOut = createAsyncThunk<void, void, { rejectValue: string }>(
       } else {
         return rejectWithValue("Logout failed");
       }
-    } catch (error: any) {
-      return rejectWithValue(error.message || "Some error");
+    } catch (error: unknown) {
+      return rejectWithValue(
+        error instanceof Error ? error.message : "Some error",
+      );
     } finally {
       dispatch(setIsLoading(false));
     }
@@ -122,8 +128,10 @@ export const fetchAuthUser = createAsyncThunk<
       return { user };
     }
     return { user: null };
-  } catch (error: any) {
-    return rejectWithValue(error.message);
+  } catch (error: unknown) {
+    return rejectWithValue(
+      error instanceof Error ? error.message : "Some error",
+    );
   } finally {
     dispatch(setIsAuthChecked(true));
   }
