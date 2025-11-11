@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { IngreditentsData } from "../../types";
+import { IngreditentsData } from "../../../types";
 
 interface CurrentIngredientState {
   ingredient: IngreditentsData | null;
@@ -15,7 +15,7 @@ const currentIngredientSlice = createSlice({
   reducers: {
     setCurrentIngredient(
       state,
-      action: PayloadAction<IngreditentsData | null>
+      action: PayloadAction<IngreditentsData | null>,
     ) {
       state.ingredient = action.payload;
     },

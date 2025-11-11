@@ -7,3 +7,4 @@ export { default as ProfilePage } from "./profile/Profile";
 export { default as ProfileEditPage } from "./profile-edit/ProfileEdit";
 export { default as NotFoundPage } from "./notFound/NotFound";
 export { default as ProfileOrdersPage } from "./profile-orders/ProfileOrders";
+export { default as OrderFeedPage } from "./feed/FeedPage";

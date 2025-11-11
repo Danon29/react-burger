@@ -7,7 +7,7 @@ import { useEffect, useState } from "react";
 import { useAppDispatch } from "../../hooks/reduxHooks";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useAppSelector } from "../../hooks/reduxHooks";
-import { loginUser } from "../../services/auth/authSlice";
+import { loginUser } from "../../services/slices/auth/authSlice";
 import Spinner from "../../components/Spinner/Spinner";
 
 const Login: React.FC = () => {

@@ -4,7 +4,7 @@ import styles from "./BurgerIngredients.module.scss";
 import { Tab } from "@ya.praktikum/react-developer-burger-ui-components";
 import { IngreditentsData } from "../../types";
 import BurgerIngredientsTab from "../BurgerIngredientsTab/BurgerIngredientsTab";
-import { setCurrentIngredient } from "../../services/currentIngredient/currentIngredientSlice";
+import { setCurrentIngredient } from "../../services/slices/currentIngredient/currentIngredientSlice";
 import { useAppDispatch, useAppSelector } from "../../hooks/reduxHooks";
 
 const IngredientsTabsEnum = {

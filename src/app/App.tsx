@@ -1,9 +1,15 @@
 import { useEffect } from "react";
 import "./App.scss";
 import AppHeader from "../components/AppHeader/AppHeader";
-import { fetchIngredients } from "../services/ingredients/ingredientsSlice";
+import { fetchIngredients } from "../services/slices/ingredients/ingredientsSlice";
 import { useAppDispatch } from "../hooks/reduxHooks";
-import { Routes, Route, useLocation, useNavigate } from "react-router-dom";
+import {
+  Routes,
+  Route,
+  useLocation,
+  useNavigate,
+  useParams,
+} from "react-router-dom";
 import {
   MainPage,
   LoginPage,
@@ -14,6 +20,7 @@ import {
   ProfileEditPage,
   NotFoundPage,
   ProfileOrdersPage,
+  OrderFeedPage,
 } from "../pages";
 import {
   AuthedRoute,
@@ -22,7 +29,8 @@ import {
 import IngredientDetailPage from "../pages/ingredient-detail/IngredientDetailPage";
 import Modal from "../components/Modal/Modal";
 import IngredientDetails from "../components/IngredientDetails/IngredientDetails";
-import { fetchAuthUser } from "../services/auth/authSlice";
+import { fetchAuthUser } from "../services/slices/auth/authSlice";
+import { OrderInfo } from "../components/OrderInfo/OrderInfo";
 
 function App() {
   const dispatch = useAppDispatch();
@@ -38,6 +46,15 @@ function App() {
 
   const handleModalClose = () => {
     navigate(-1);
+  };
+
+  const OrderInfoModal = () => {
+    const { number } = useParams<{ number: string }>();
+    return (
+      <Modal title={`#${number}`} onClose={handleModalClose}>
+        <OrderInfo insideModal={true} />
+      </Modal>
+    );
   };
 
   return (
@@ -72,7 +89,15 @@ function App() {
               element={<AuthedRoute element={<ProfileOrdersPage />} />}
             />
           </Route>
+          <Route
+            element={<AuthedRoute element={<OrderInfo />} />}
+            path="/profile/orders/:number"
+          ></Route>
+
           <Route path="/ingredients/:id" element={<IngredientDetailPage />} />
+
+          <Route path="/feed" element={<OrderFeedPage />} />
+          <Route path="/feed/:number" element={<OrderInfo />}></Route>
           <Route path="*" element={<NotFoundPage />} />
         </Routes>
 
@@ -85,6 +110,12 @@ function App() {
                   <IngredientDetails />
                 </Modal>
               }
+            />
+            <Route path="/feed/:number" element={<OrderInfoModal />} />
+
+            <Route
+              path="/profile/orders/:number"
+              element={<OrderInfoModal />}
             />
           </Routes>
         )}

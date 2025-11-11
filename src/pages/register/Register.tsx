@@ -7,7 +7,7 @@ import {
 import React, { FormEvent, useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "../../hooks/reduxHooks";
-import { registerUser } from "../../services/auth/authSlice";
+import { registerUser } from "../../services/slices/auth/authSlice";
 import Spinner from "../../components/Spinner/Spinner";
 
 const Register: React.FC = () => {

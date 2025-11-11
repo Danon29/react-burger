@@ -3,7 +3,7 @@ import img from "../../images/done.jpg";
 import { useAppSelector } from "../../hooks/reduxHooks";
 
 const OrderDetails: React.FC = () => {
-  const orderNumber = useAppSelector((state) => state.order.orderNumber);
+  const orderNumber = useAppSelector((state) => state.order.order?.number);
   return (
     <div className={`${styles.container} mt-10`}>
       <p
