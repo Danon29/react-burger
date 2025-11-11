@@ -30,7 +30,6 @@ const ProfileOrders: React.FC = () => {
     );
 
     return () => {
-      debugger;
       dispatch(wsDisconnect());
     };
   }, [dispatch, ingredients]);

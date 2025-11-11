@@ -18,7 +18,7 @@ export type WSActions<R, S> = {
 
 export const socketMiddleware = <R, S>(
   wsActions: WSActions<R, S>,
-  withTokenRefresh: boolean = false
+  withTokenRefresh: boolean = false,
 ): Middleware<Record<string, never>, RootState> => {
   return (store) => {
     let socket: WebSocket | null = null;
@@ -36,8 +36,6 @@ export const socketMiddleware = <R, S>(
 
     return (next) => (action) => {
       if (connect.match(action)) {
-        debugger;
-
         socket = new WebSocket(action.payload);
         if (onConnecting) dispatch(onConnecting());
 
