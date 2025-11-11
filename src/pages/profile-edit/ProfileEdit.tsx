@@ -6,7 +6,7 @@ import {
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import { ChangeEvent, FormEvent, useEffect, useState } from "react";
 import { useAppDispatch, useAppSelector } from "../../hooks/reduxHooks";
-import { updateUser } from "../../services/auth/authSlice";
+import { updateUser } from "../../services/slices/auth/authSlice";
 import Spinner from "../../components/Spinner/Spinner";
 
 const ProfileEdit = () => {

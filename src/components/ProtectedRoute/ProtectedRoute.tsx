@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { useAppSelector } from "../../hooks/reduxHooks";
 import { Navigate, useLocation, useNavigate } from "react-router-dom";
-import { getIsAuthChecked } from "../../services/auth/authSlice";
+import { getIsAuthChecked } from "../../services/slices/auth/authSlice";
 
 interface ProtectedRouteProps {
   onlyAuthedAccess?: boolean;

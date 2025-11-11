@@ -5,7 +5,7 @@ import {
   logout,
   register,
   updateUserData,
-} from "../../utils/authApi";
+} from "../../../utils/authApi";
 
 interface User {
   email: string;

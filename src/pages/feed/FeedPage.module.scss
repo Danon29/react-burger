@@ -1,0 +1,42 @@
+.pageWrapper {
+  display: flex;
+  flex-direction: column;
+
+  width: 80%;
+  .contentWrapper {
+    display: flex;
+    justify-content: space-between;
+    column-gap: 40px;
+
+    scrollbar-width: thin !important;
+    scrollbar-color: #8585ad #2f2f37 !important;
+    .feed {
+      width: 100%;
+      max-width: 600px;
+      height: 100%;
+      overflow-y: auto;
+      max-height: 660px !important;
+    }
+
+    .feedInfo {
+      width: 100%;
+      max-width: 600px;
+      height: 100%;
+    }
+
+    .board {
+      display: flex;
+      justify-content: space-between;
+      column-gap: 40px;
+    }
+
+    .boardColumn {
+      width: 50%;
+    }
+
+    .boardOrders {
+      display: flex;
+      flex-direction: column;
+    }
+  }
+}

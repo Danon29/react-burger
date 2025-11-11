@@ -3,7 +3,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { IngreditentsData } from "../../types";
 import { useAppDispatch } from "../../hooks/reduxHooks";
-import { fetchIngredients } from "../../services/ingredients/ingredientsSlice";
+import { fetchIngredients } from "../../services/slices/ingredients/ingredientsSlice";
 
 const IngredientDetails: React.FC = () => {
   const { id } = useParams<{ id: string }>();

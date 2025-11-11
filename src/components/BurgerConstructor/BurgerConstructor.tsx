@@ -15,9 +15,9 @@ import {
   removeConstructorIngredient,
   reorderIngredients,
   replaceBun,
-} from "../../services/constructor/constructorSlice";
+} from "../../services/slices/constructor/constructorSlice";
 import DraggableIngredient from "../DraggableIngredient/DraggableIngredient";
-import { postOrder } from "../../services/order/orderSlice";
+import { postOrder } from "../../services/slices/order/orderSlice";
 import { useAppDispatch, useAppSelector } from "../../hooks/reduxHooks";
 import { useNavigate } from "react-router-dom";
 import Spinner from "../Spinner/Spinner";

@@ -12,3 +12,28 @@ export type IngreditentsData = {
   image_large: string;
   __v: number;
 };
+
+export type TOrder = {
+  _id: string;
+  name: string;
+  status: keyof typeof orderStatusesTranslation;
+  number: number;
+  createdAt: string;
+  updatedAt: string;
+  ingredients: string[];
+};
+
+export enum orderStatusesTranslation {
+  done = "Выполнен",
+  pending = "Готовится",
+  created = "Создан",
+}
+
+export const OrderStatusPending = "pending";
+export const OrderStatusDone = "done";
+export const OrderStatusCreated = "created";
+
+export enum WebSocketStatus {
+  ONLINE,
+  OFFLINE,
+}

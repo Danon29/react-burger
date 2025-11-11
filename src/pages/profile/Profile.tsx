@@ -1,6 +1,6 @@
 import { Outlet } from "react-router";
 import { NavLink } from "react-router-dom";
-import { logOut } from "../../services/auth/authSlice";
+import { logOut } from "../../services/slices/auth/authSlice";
 import { useAppDispatch, useAppSelector } from "../../hooks/reduxHooks";
 import Spinner from "../../components/Spinner/Spinner";
 
