@@ -1,0 +1,19 @@
+{
+  "success": true,
+  "name": "Краторный space бургер",
+  "order": {
+    "_id": "643d69a5c3f7b9001cfa0943",
+    "name": "Краторный space бургер",
+    "status": "done",
+    "number": 87592,
+    "createdAt": "2023-04-15T10:00:00.000Z",
+    "updatedAt": "2023-04-15T10:05:00.000Z",
+    "ingredients": [
+      "643d69a5c3f7b9001cfa093c",
+      "643d69a5c3f7b9001cfa093e",
+      "643d69a5c3f7b9001cfa0942"
+    ]
+  }
+}
+
+

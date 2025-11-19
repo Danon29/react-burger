@@ -9,7 +9,7 @@ interface OrderState {
   order: TOrder | null;
 }
 
-const initialState: OrderState = {
+export const initialState: OrderState = {
   status: "idle",
   error: null,
   order: null,
@@ -40,7 +40,7 @@ export const postOrder = createAsyncThunk<
     });
   } catch (error) {
     return rejectWithValue(
-      error instanceof Error ? error.message : "Some error",
+      error instanceof Error ? error.message : "Some error"
     );
   }
 });
@@ -53,7 +53,7 @@ export const loadOrder = createAsyncThunk(
       dispatch(setOrderData(getOrderResult.orders[0]));
     }
     return getOrderResult;
-  },
+  }
 );
 
 const orderSlice = createSlice({

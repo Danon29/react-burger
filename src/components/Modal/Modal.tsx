@@ -26,7 +26,7 @@ const Modal: React.FC<Props> = ({ title, children, onClose }) => {
   if (!modalRoot) return null;
 
   return ReactDOM.createPortal(
-    <div className={styles.container}>
+    <div className={styles.container} data-testid="modal">
       <div className={styles.dialog}>
         <div className={`${styles.header} mt-10 mr-10 ml-10`}>
           {title && (
@@ -34,7 +34,7 @@ const Modal: React.FC<Props> = ({ title, children, onClose }) => {
               {title}
             </div>
           )}
-          <div className={styles["close-button"]}>
+          <div className={styles["close-button"]} data-testid="modal-close">
             <CloseIcon type="primary" onClick={onClose} />
           </div>
         </div>

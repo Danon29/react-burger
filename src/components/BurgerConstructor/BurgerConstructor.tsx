@@ -33,7 +33,7 @@ const BurgerConstructor: React.FC = () => {
     () =>
       (buns?.price as number) * 2 +
       data.reduce((sum, item) => (sum += item.price), 0),
-    [data, buns],
+    [data, buns]
   );
 
   const user = useAppSelector((state) => state.auth.user);
@@ -70,13 +70,17 @@ const BurgerConstructor: React.FC = () => {
 
   const ingredients = [
     ...useAppSelector((state) => state.constructorState.items).map(
-      (item) => item._id,
+      (item) => item._id
     ),
     ...(bun ? [bun._id, bun._id] : []),
   ];
 
   return (
-    <section ref={dropRef} className={`${styles.section} mt-30`}>
+    <section
+      ref={dropRef}
+      className={`${styles.section} mt-30`}
+      data-testid="drop-area"
+    >
       {!buns && ingredients.length === 0 ? (
         <div className={styles["empty-block"]} style={{ height: "400px" }}>
           <div

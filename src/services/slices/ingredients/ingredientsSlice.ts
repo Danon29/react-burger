@@ -12,7 +12,7 @@ interface IngredientsState {
   error: string | null;
 }
 
-const initialState: IngredientsState = {
+export const initialState: IngredientsState = {
   items: [],
   status: "idle",
   error: null,
@@ -25,10 +25,10 @@ export const fetchIngredients = createAsyncThunk(
       return await getData();
     } catch (error) {
       return rejectWithValue(
-        error instanceof Error ? error.message : String(error),
+        error instanceof Error ? error.message : String(error)
       );
     }
-  },
+  }
 );
 
 const ingredientsSlice = createSlice({
@@ -66,6 +66,6 @@ export const getIngredientsDict = createSelector(
         acc[ingredient._id] = ingredient;
         return acc;
       },
-      {} as Record<IngreditentsData["_id"], IngreditentsData>,
-    ),
+      {} as Record<IngreditentsData["_id"], IngreditentsData>
+    )
 );

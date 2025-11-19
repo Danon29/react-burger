@@ -18,7 +18,7 @@ export const onMessage = createAction(
     return {
       payload: {
         ...data,
-        orders: data.orders.sort((a, b) => b.number - a.number),
+        orders: [...data.orders].sort((a, b) => b.number - a.number),
       },
     };
   }
