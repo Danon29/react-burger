@@ -22,7 +22,7 @@ interface IOrdersState {
   gotFirstMessage: boolean;
 }
 
-const initialState: IOrdersState = {
+export const initialState: IOrdersState = {
   orders: [],
   total: 0,
   totalToday: 0,
@@ -66,11 +66,11 @@ export const { getOrders, getTotal, getTotalToday } = ordersAllSlice.selectors;
 export const selectPendingOrders = createSelector(
   [(state: RootState) => state.ordersFeed.orders],
   (orders: TOrder[]) =>
-    orders.filter(({ status }) => status === OrderStatusPending).slice(0, 5),
+    orders.filter(({ status }) => status === OrderStatusPending).slice(0, 5)
 );
 
 export const selectCreatedOrders = createSelector(
   [(state: RootState) => state.ordersFeed.orders],
   (orders: TOrder[]) =>
-    orders.filter((order) => order.status === OrderStatusCreated).slice(0, 5),
+    orders.filter((order) => order.status === OrderStatusCreated).slice(0, 5)
 );
