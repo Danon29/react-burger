@@ -19,7 +19,7 @@ interface AuthState {
   isAuthChecked: boolean;
 }
 
-const initialState: AuthState = {
+export const initialState: AuthState = {
   user: null,
   loading: false,
   error: null,
@@ -44,12 +44,12 @@ export const registerUser = createAsyncThunk<
       return rejectWithValue("Authentication failed");
     } catch (error: unknown) {
       return rejectWithValue(
-        error instanceof Error ? error.message : "Some error",
+        error instanceof Error ? error.message : "Some error"
       );
     } finally {
       dispatch(setIsLoading(false));
     }
-  },
+  }
 );
 
 export const loginUser = createAsyncThunk<
@@ -70,12 +70,12 @@ export const loginUser = createAsyncThunk<
       return rejectWithValue("Authentication failed");
     } catch (error: unknown) {
       return rejectWithValue(
-        error instanceof Error ? error.message : "Some error",
+        error instanceof Error ? error.message : "Some error"
       );
     } finally {
       dispatch(setIsLoading(false));
     }
-  },
+  }
 );
 
 export const logOut = createAsyncThunk<void, void, { rejectValue: string }>(
@@ -92,25 +92,25 @@ export const logOut = createAsyncThunk<void, void, { rejectValue: string }>(
       }
     } catch (error: unknown) {
       return rejectWithValue(
-        error instanceof Error ? error.message : "Some error",
+        error instanceof Error ? error.message : "Some error"
       );
     } finally {
       dispatch(setIsLoading(false));
     }
-  },
+  }
 );
 
 export const updateUser = createAsyncThunk(
   "auth/updateUser",
   async (
     data: { email: string; name: string; password: string },
-    { dispatch },
+    { dispatch }
   ) => {
     const result = await updateUserData(data);
 
     if (result.success) dispatch(setUser(result.user));
     return result;
-  },
+  }
 );
 
 export const fetchAuthUser = createAsyncThunk<
@@ -130,7 +130,7 @@ export const fetchAuthUser = createAsyncThunk<
     return { user: null };
   } catch (error: unknown) {
     return rejectWithValue(
-      error instanceof Error ? error.message : "Some error",
+      error instanceof Error ? error.message : "Some error"
     );
   } finally {
     dispatch(setIsAuthChecked(true));

@@ -12,7 +12,7 @@ interface ConstructorIngredient extends IngreditentsData {
   uniqueId: string;
 }
 
-const initialState: ConstructorState = {
+export const initialState: ConstructorState = {
   bun: null,
   items: [],
   counts: {},
